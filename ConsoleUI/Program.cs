@@ -1,8 +1,9 @@
 ﻿using Business.Concrete;
 using DataAccess.Abstract;
-using DataAccess.Concrete.InMemory;
+using DataAccess.Concrete.EntitiyFramework;
 using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -11,70 +12,40 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
 
-            foreach (var item in carManager.GetAll())
+
+            CarManager carManager = new CarManager(new EfCarDal());
+
+
+            foreach (var item in carManager.GetCarsByColorId(3))
             {
-                Console.WriteLine(item.CarId +" -> " + item.DailyPrice);
+                Console.WriteLine(item.CarName);
             }
 
-            Car addCar = new Car
+            foreach (var item in carManager.GetCarsByBrandId(1))
             {
-                CarId = 6,
-                BrandId = 2,
-                ColorId = 4,
-                ModelYear = 2019,
-                DailyPrice = 285.65,
-                Description = "Vites = Manuel, Yakıt = Dizel/Benzin, Klimalı"
-            };
-            
-            carManager.Add(addCar);
+                Console.WriteLine(item.CarName);
+            }
 
-            addCar = new Car
+            Car addCar = new Car()
             {
-                CarId = 7,
-                BrandId = 1,
-                ColorId = 1,
-                ModelYear = 2016,
-                DailyPrice = 346.55,
-                Description = "Vites = Otomatik, Yakıt = Dizel/Benzin, Klimalı"
-
-            };
-            carManager.Add(addCar);
-
-            Car updateCar = new Car
-            {
-                CarId = 3,
-                BrandId = 2,
-                ColorId = 4,
+                CarName = "RENAULT CLIO",
+                BrandId = 5,
+                ColorId = 2,
                 ModelYear = 2018,
-                DailyPrice = 355.65,
-                Description = "Vites= Manuel, Yakıt = Dizel/Benzin, Klimalı"
+                DailyPrice = 0,
+                Description = "Klimali, Otomatik Vites,Benzin"
             };
 
-            carManager.Update(updateCar);
-           
-
-            Car deleteCar = new Car
-            {
-                CarId = 7,
-                BrandId = 1,
-                ColorId = 1,
-                ModelYear = 2016,
-                DailyPrice = 346.55,
-                Description = "Vites = Otomatik, Yakıt = Dizel/Benzin, Klimalı"
-            };
-
-            carManager.Delete(deleteCar);
-
-            foreach (var item in carManager.GetAll())
-            {
-                Console.WriteLine(item.CarId);
-            }
-
+            carManager.Add(addCar);
 
 
 
         }
+
+
+
+
+
     }
 }
