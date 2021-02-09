@@ -1,4 +1,5 @@
-﻿using Entities.Abstract;
+﻿
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace Entities.Concrete
     public class Colour: IEntity
     {
         [Key]
-        public int ColorId { get; set; }
-        public string ColorName { get; set; }
+        public int ColourId { get; set; }
+        public string ColourName { get; set; }
     }
 }

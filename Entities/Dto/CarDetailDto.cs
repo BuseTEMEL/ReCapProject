@@ -1,19 +1,15 @@
-﻿
-using Core.Entities;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Entities.Concrete
+namespace Entities.Dto
 {
-    public class Car : IEntity
+    public class CarDetailDto : IDto
     {
-        [Key]
-        public int CarId { get; set; }
         public string CarName { get; set; }
-        public int BrandId { get; set; }
-        public int ColourId { get; set; }
+        public string BrandName { get; set; }
+        public string ColourName { get; set; }
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }

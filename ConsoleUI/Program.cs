@@ -12,10 +12,54 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
+            //CarTest();
 
+            //ColourTest();
 
             CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var carDetails in carManager.GetCarDetails())
+            {
+                Console.WriteLine(carDetails.CarName + "/" + carDetails.ColourName);
+            }
 
+        }
+
+        private static void ColourTest()
+        {
+            ColourManager colourManager = new ColourManager(new EfColourDal());
+            foreach (var colour in colourManager.GetAll())
+            {
+                Console.WriteLine(colour.ColourName + "/" + colour.ColourId);
+            }
+
+            foreach (var colour in colourManager.GetById(3))
+            {
+                Console.WriteLine(colour.ColourId + "/" + colour.ColourName);
+            }
+
+            Colour colourAdd = new Colour()
+            {
+                ColourName = "Dark Blue"
+            };
+            colourManager.Add(colourAdd);
+
+            foreach (var colour in colourManager.GetAll())
+            {
+                Console.WriteLine(colour.ColourName + "/" + colour.ColourId);
+            }
+
+            colourManager.Delete(2002);
+            foreach (var colours in colourManager.GetAll())
+            {
+                Console.WriteLine(colours.ColourName);
+            }
+
+            colourManager.Update(1);
+        }
+
+        private static void CarTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
 
             foreach (var item in carManager.GetCarsByColorId(3))
             {
@@ -31,7 +75,7 @@ namespace ConsoleUI
             {
                 CarName = "RENAULT CLIO",
                 BrandId = 5,
-                ColorId = 2,
+                ColourId = 2,
                 ModelYear = 2018,
                 DailyPrice = 0,
                 Description = "Klimali, Otomatik Vites,Benzin"
@@ -39,13 +83,21 @@ namespace ConsoleUI
 
             carManager.Add(addCar);
 
+            carManager.Delete(2004);
+
+            foreach (var item in carManager.GetAll())
+            {
+                Console.WriteLine(item.CarName);
+            }
 
 
+
+            Car updatedCar = new Car()
+            {
+                ModelYear = 2018
+            };
+
+            carManager.Update(4);
         }
-
-
-
-
-
-    }
+    } 
 }
